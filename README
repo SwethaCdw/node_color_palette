@@ -1,1 +1,12 @@
 Node enablement -  1st and 2nd exercise
+
+Exercise 1
+1. Randomize the Color Palette	"1. Store the attached `color_ palette.json` in your filesystem
+2. Read the JSON file as a JSON array from the filesystem using the core `fs` module
+3. Randomize the color palette and take 5 colors
+4. Programmatically create a new file `randomized_color_ palette.json` in your filesystem and write the randomized 5 colors into that file
+5. Read the newly created `randomized_color_ palette.json` again in the same NodeJS program and print those 5 colors in the console"
+		
+Exercise 2	Create an HTTP Server	
+1. Create an HTTP Server using the core `HTTP` module
+2. Use the same Exercise 1 logic to pick 5 random colors from the `color_ palette.json` and send those 5 colors as a JSON response"
