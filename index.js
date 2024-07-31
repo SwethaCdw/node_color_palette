@@ -7,6 +7,11 @@ const { getRandomColors } = require('./utils/colorUtils');
  */
 const main = async () => {
     const filePath = path.join(__dirname, 'color_palette.json');
+
+    // If the script is located in /Users/username/project, __dirname would be /Users/username/project. 
+    // The resulting filePath would be /Users/username/project/color_palette.json on a Unix-based system 
+    // or C:\Users\username\project\color_palette.json on Windows.
+
     const colorPalette = await readJsonFile(filePath);
     
     if (colorPalette) {
@@ -15,6 +20,8 @@ const main = async () => {
         
         const outputFilePath = path.join(__dirname, 'randomized_color_palette.json');
         await writeJsonFile(outputFilePath, randomizedColors);
+
+        //In this case, if randomized_color_palette.json does not exist, it will be created with the content 
 
         const newColorPalette = await readJsonFile(outputFilePath);
         console.log('Newly Created Randomized Color Palette:', newColorPalette);

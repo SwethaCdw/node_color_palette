@@ -1,31 +1,25 @@
+const express = require('express');
 const path = require('path');
-const { readJsonFile } = require('./utils/readFile');
-const { getRandomColors } = require('./utils/colorUtils');
+const { readJsonFile } = require('./utils/readFile'); 
 
-/**
- * HTTP server listener
- * @param {*} req 
- * @param {*} res 
- */
-const requestListener = async (req, res) => {
-    if (req.method === 'GET') {
-        const filePath = path.join(__dirname, 'color_palette.json');
-        const colorPalette = await readJsonFile(filePath);
+const app = express();
+const port = 3000;
 
-        if (colorPalette) {
-            const randomizedColors = getRandomColors(colorPalette, 5);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(randomizedColors));
-        } else {
-            res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Failed to read color palette file' }));
-        }
+app.get('/randomColors', async (res) => {
+    const filePath = path.join(__dirname, 'randomized_color_palette.json');
+    const randomizedColorPalette = await readJsonFile(filePath);
+
+    if (randomizedColorPalette) {
+        // If the file was read successfully, sends a JSON response with the content of randomizedColorPalette and sets the HTTP status code to 200 (OK)
+        res.status(200).json(randomizedColorPalette);
     } else {
-        res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Not Found' }));
+        //If the file could not be read, sends a JSON response with an error message and sets the HTTP status code to 500 (Internal Server Error)
+        res.status(500).json({ error: 'Failed to read randomized color palette file' });
     }
-};
+});
 
-module.exports = {
-    requestListener,
-};
+// Starts the server and makes it listen for connections on the specified port (3000).
+// The callback function logs a message to the console indicating that the server is running and provides the URL where it can be accessed.
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}/randomColors`);
+});
