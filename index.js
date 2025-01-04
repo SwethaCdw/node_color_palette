@@ -8,10 +8,6 @@ const { getRandomColors } = require('./utils/colorUtils');
 const main = async () => {
     const filePath = path.join(__dirname, 'color_palette.json');
 
-    // If the script is located in /Users/username/project, __dirname would be /Users/username/project. 
-    // The resulting filePath would be /Users/username/project/color_palette.json on a Unix-based system 
-    // or C:\Users\username\project\color_palette.json on Windows.
-
     const colorPalette = await readJsonFile(filePath);
     
     if (colorPalette) {
